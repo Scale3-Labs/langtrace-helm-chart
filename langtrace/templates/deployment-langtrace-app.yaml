@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.langtraceApp.name }}-app
+  labels:
+    app: {{ .Values.langtraceApp.name }}-app
+    {{- include "langtrace.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.langtraceApp.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.langtraceApp.name }}-app
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.langtraceApp.name }}-app
+        {{- include "langtrace.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Values.langtraceApp.name }}-app
+          image: {{ include "langtraceApp.image" . }}:{{ include "langtraceApp.docker_tag" . }}
+          imagePullPolicy: {{ .Values.langtraceApp.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.langtraceApp.containerPort }}
+          envFrom:
+            - secretRef:
+                name: langtrace-env

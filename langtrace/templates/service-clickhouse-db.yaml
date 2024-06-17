@@ -1,0 +1,20 @@
+{{- if .Values.clickhouse.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.clickhouse.name }}
+  labels:
+    {{- include "langtrace.labels" . | nindent 4 }}
+spec:
+  selector:
+    app: {{ .Values.clickhouse.name }}
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8123
+      targetPort: 8123
+    - name: tcp
+      protocol: TCP
+      port: 9000
+      targetPort: 9000
+{{- end}}

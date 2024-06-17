@@ -1,0 +1,11 @@
+apiVersion: v2
+name: langtrace
+description: A Helm chart for self-hosting Langtrace
+version: 1.0.0
+type: application
+appVersion: "1.16.0"
+sources:
+  - https://github.com/Scale3-Labs/langtrace
+maintainers:
+  - name: Scale3labs
+    email: contact@langtrace.ai

@@ -1,0 +1,60 @@
+langtraceApp:
+  name: langtrace
+  # langtrace_release: latest
+  imagePullPolicy: IfNotPresent
+  containerPort: 3000
+  replicaCount: 1
+  envFile: ".env"
+  restartPolicy: OnFailure
+  maxRetry: 5
+
+postgres:
+  enabled: true
+  name: langtrace-postgres
+  image: postgres:16.2-bookworm
+  imagePullPolicy: IfNotPresent
+  containerPort: 5432
+  envFile: ".env"
+  storageSize: 10Gi
+
+clickhouse:
+  enabled: true
+  name: langtrace-clickhouse
+  image: clickhouse/clickhouse-server:24.5.1.1763-alpine
+  imagePullPolicy: IfNotPresent
+  containerPorts:
+    - 8123
+    - 9000
+  storageSize: 10Gi
+
+env:
+  # Postgres Variables
+  postgres_host: "langtrace-postgres:5432"
+  postgres_user: "ltuser"
+  postgres_password: "ltpasswd"
+  postgres_database: "langtrace"
+
+  # Application Variables
+  NEXT_PUBLIC_APP_NAME: "Langtrace"
+  NEXT_PUBLIC_ENVIRONMENT: "development"
+  NEXT_PUBLIC_HOST: "http://localhost:3000"
+  NEXTAUTH_SECRET: "difficultsecret"
+  NEXTAUTH_URL: "${NEXT_PUBLIC_HOST}"
+  NEXTAUTH_URL_INTERNAL: "${NEXT_PUBLIC_HOST}"
+
+  # Clickhouse Variables
+  CLICK_HOUSE_HOST: "http://langtrace-clickhouse:8123"
+  CLICK_HOUSE_USER: "lt_clickhouse_user"
+  CLICK_HOUSE_PASSWORD: "clickhousepw"
+  CLICK_HOUSE_DATABASE_NAME: "langtrace_traces"
+
+  # Admin login
+  ADMIN_EMAIL: "admin@langtrace.ai"
+  ADMIN_PASSWORD: "langtraceadminpw"
+  NEXT_PUBLIC_ENABLE_ADMIN_LOGIN: "true"
+
+  # Clickhouse container environment variables
+  CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: "1"
+  CLICKHOUSE_PASSWORD: ${CLICK_HOUSE_PASSWORD}
+  CLICKHOUSE_USER: ${CLICK_HOUSE_USER}
+  CLICKHOUSE_DB: ${CLICK_HOUSE_DATABASE_NAME}

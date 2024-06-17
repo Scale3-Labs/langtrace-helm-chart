@@ -1,0 +1,37 @@
+{{- if .Values.postgres.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.postgres.name }}
+  labels:
+    {{- include "langtrace.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.postgres.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.postgres.name }}
+        {{- include "langtrace.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Values.postgres.name }}
+          image: {{ .Values.postgres.image }}
+          imagePullPolicy: {{ .Values.postgres.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.postgres.containerPort }}
+          envFrom:
+            - secretRef:
+                name: langtrace-env
+          volumeMounts:
+          - mountPath: /var/lib/postgresql/data
+            name: postgres-volume
+      volumes:
+        - name: postgres-volume
+          persistentVolumeClaim:
+            claimName: {{ .Values.postgres.name }}-pvc
+  strategy:
+    type: Recreate
+{{- end}}

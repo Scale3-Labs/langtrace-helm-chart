@@ -1,0 +1,39 @@
+{{- if .Values.clickhouse.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.clickhouse.name }}
+  labels:
+    {{- include "langtrace.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.clickhouse.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.clickhouse.name }}
+        {{- include "langtrace.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Values.clickhouse.name }}
+          image: {{ .Values.clickhouse.image }}
+          imagePullPolicy: {{ .Values.clickhouse.imagePullPolicy }}
+          ports:
+            {{- range .Values.clickhouse.containerPorts }}
+            - containerPort: {{ . }}
+            {{- end }}
+          envFrom:
+            - secretRef:
+                name: langtrace-env
+          volumeMounts:
+          - mountPath: /var/lib/clickhouse
+            name: clickhouse-volume
+      volumes:
+        - name: clickhouse-volume
+          persistentVolumeClaim:
+            claimName: {{ .Values.clickhouse.name }}-pvc
+  strategy:
+    type: Recreate
+{{- end }}

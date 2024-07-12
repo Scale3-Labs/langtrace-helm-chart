@@ -49,3 +49,8 @@ env:
   ADMIN_EMAIL: "admin@langtrace.ai"
   ADMIN_PASSWORD: "langtraceadminpw"
   NEXT_PUBLIC_ENABLE_ADMIN_LOGIN: "true"
+
+  # Azure AD Variables
+  AZURE_AD_CLIENT_ID: ""
+  AZURE_AD_CLIENT_SECRET: ""
+  AZURE_AD_TENANT_ID: ""

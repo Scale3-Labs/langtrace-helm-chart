@@ -44,6 +44,11 @@ jobs:
       - release
 
     steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4.1.7
+        with:
+          ref: main
+
       - name: Slack - Success Message
         uses: DSdatsme/slack-github-action@env_support
         if: ${{ success() && needs.release.result == 'success' }}

@@ -1,0 +1,30 @@
+{{- if .Values.langtraceApp.ingress.create }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.langtraceApp.name }}-ingress
+  labels:
+    {{- include "langtrace.labels" . | nindent 4 }}
+  annotations:
+# Ingress annotations from values.yaml
+{{- if .Values.langtraceApp.ingress.annotations }}
+{{ toYaml .Values.langtraceApp.ingress.annotations | indent 4 }}
+{{- end }}
+spec:
+  ingressClassName: {{ .Values.langtraceApp.ingress.class }}
+  rules:
+  - host: {{ .Values.langtraceApp.ingress.ingressDNS }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: {{ .Values.langtraceApp.name }}-svc
+            port:
+              number: {{ .Values.langtraceApp.ingress.backendPort }}
+        pathType: ImplementationSpecific
+        path: /
+  tls:
+  - hosts:
+    - {{ .Values.langtraceApp.ingress.ingressDNS }}
+    secretName: {{ .Values.langtraceApp.name }}-svc-cert
+{{- end }}

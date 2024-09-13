@@ -1,7 +1,7 @@
 apiVersion: v2
 name: langtrace
 description: A Helm chart for self-hosting Langtrace
-version: 1.0.3
+version: 1.1.0
 type: application
 appVersion: "1.16.0"
 sources:

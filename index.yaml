@@ -3,6 +3,21 @@ entries:
   langtrace:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-02-17T20:02:09.45793551Z"
+    description: A Helm chart for self-hosting Langtrace
+    digest: 0ab93dcb8381009f2d6cdbed8aa7e2bfc3333d9ec6b4d4f38afca399d2ff4306
+    maintainers:
+    - email: contact@langtrace.ai
+      name: Scale3labs
+    name: langtrace
+    sources:
+    - https://github.com/Scale3-Labs/langtrace
+    type: application
+    urls:
+    - https://github.com/Scale3-Labs/langtrace-helm-chart/releases/download/langtrace-1.1.1/langtrace-1.1.1.tgz
+    version: 1.1.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-09-13T13:38:43.23708831Z"
     description: A Helm chart for self-hosting Langtrace
     digest: 44d51d8e1775b1667089a181e78fafe0b4e2ac48fb17a40a6cf7ee4b08632b9b
@@ -76,4 +91,4 @@ entries:
     urls:
     - https://github.com/Scale3-Labs/langtrace-helm-chart/releases/download/langtrace-1.0.0/langtrace-1.0.0.tgz
     version: 1.0.0
-generated: "2024-09-13T13:38:43.237120931Z"
+generated: "2025-02-17T20:02:09.457963983Z"

@@ -24,12 +24,14 @@ postgres:
   imagePullPolicy: IfNotPresent
   containerPort: 5432
   storageSize: 10Gi
+  # subPath: pg-data   # Uncomment this line to use subPath
 
 clickhouse:
   enabled: true
   name: langtrace-clickhouse
   image: clickhouse/clickhouse-server:24.5.1.1763-alpine
   imagePullPolicy: IfNotPresent
+  # subPath: clickhouse-data   # Uncomment this line to use subPath
   containerPorts:
     - 8123
     - 9000

@@ -28,6 +28,9 @@ spec:
           volumeMounts:
           - mountPath: /var/lib/postgresql/data
             name: postgres-volume
+            {{- if .Values.postgres.subPath }}
+            subPath: {{ .Values.postgres.subPath }}
+            {{- end}}
       volumes:
         - name: postgres-volume
           persistentVolumeClaim:

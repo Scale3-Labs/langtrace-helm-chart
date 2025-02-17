@@ -30,6 +30,9 @@ spec:
           volumeMounts:
           - mountPath: /var/lib/clickhouse
             name: clickhouse-volume
+            {{- if .Values.clickhouse.subPath }}
+            subPath: {{ .Values.clickhouse.subPath }}
+            {{- end}}
       volumes:
         - name: clickhouse-volume
           persistentVolumeClaim:

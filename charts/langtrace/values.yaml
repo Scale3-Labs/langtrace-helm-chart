@@ -24,6 +24,7 @@ postgres:
   imagePullPolicy: IfNotPresent
   containerPort: 5432
   storageSize: 10Gi
+  # storageClassName: gp2
   # subPath: pg-data   # Uncomment this line to use subPath
 
 clickhouse:
@@ -32,6 +33,7 @@ clickhouse:
   image: clickhouse/clickhouse-server:24.5.1.1763-alpine
   imagePullPolicy: IfNotPresent
   # subPath: clickhouse-data   # Uncomment this line to use subPath
+  # storageClassName: gp2
   containerPorts:
     - 8123
     - 9000

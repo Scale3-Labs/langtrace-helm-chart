@@ -6,6 +6,9 @@ metadata:
   labels:
     {{- include "langtrace.labels" . | nindent 4 }}
 spec:
+  {{- if .Values.postgres.storageClassName }}
+  storageClassName: {{ .Values.postgres.storageClassName }}
+  {{- end }}
   accessModes:
     - ReadWriteOnce
   resources:

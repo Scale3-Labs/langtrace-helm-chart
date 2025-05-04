@@ -7,6 +7,7 @@ langtraceApp:
   replicaCount: 1
   restartPolicy: OnFailure
   maxRetry: 5
+  serviceType: ClusterIP
   ingress:
     create: false
     # ingressDNS: "example.com"

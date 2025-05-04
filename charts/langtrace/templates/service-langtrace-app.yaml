@@ -5,6 +5,7 @@ metadata:
   labels:
     {{- include "langtrace.labels" . | nindent 4 }}
 spec:
+  type: {{ .Values.langtraceApp.serviceType | default "ClusterIP" }}
   selector:
     app: {{ .Values.langtraceApp.name }}-app
   ports:
